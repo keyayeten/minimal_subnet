@@ -22,6 +22,14 @@ def main():
 
 
 def load_ips(ip_file: str) -> list[str]:
+    """Loads an IP address from a text file
+
+    Args:
+        ip_file (str): Location of text file with ip
+
+    Returns:
+        list[str]: List of IP addresses
+    """
     with open(ip_file, "r") as source:
         return [line.strip() for line in source if line != '']
 

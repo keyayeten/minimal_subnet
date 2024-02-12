@@ -52,3 +52,10 @@ pip install <путь до пакета .tar.gz>
 Пример:
 
 minimal_subnet "C:\Users\Vladislav\Desktop\data.txt" "ipv6"
+
+
+# Тесты
+
+Для запуска тестов требуется установка модуля pytest.
+
+Тесты запускаются командой pytest.

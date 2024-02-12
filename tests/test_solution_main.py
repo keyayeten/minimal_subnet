@@ -3,6 +3,9 @@ import pytest
 
 
 def test_correct_ipv4():
+    """
+    Test with correct ipv4 addresses
+    """
     ip_addresses_v4 = ['192.168.1.1',
                        '192.168.1.3',
                        '192.168.1.5']
@@ -10,6 +13,9 @@ def test_correct_ipv4():
 
 
 def test_correct_ipv6():
+    """
+    Test with correct ipv6 addresses
+    """
     ip_addresses_v6 = ["ffe0::1:0:0:0",
                        "ffe0::2:0:0:0",
                        "ffe0::4:0:0:0",
@@ -22,6 +28,9 @@ def test_correct_ipv6():
 
 
 def test_edge_cases():
+    """
+    Test to check operation with maximum and minimum IP addresses
+    """
     ip_addresses_edge_min = [
         '0.0.0.0', '0.0.0.1',
         '0.0.0.2', '0.0.0.3',
@@ -41,17 +50,26 @@ def test_edge_cases():
 
 
 def test_single_ipv4():
+    """
+    Checking operation with a single set of ipv4 addresses
+    """
     ip_address_single_v4 = ['192.168.1.1']
     assert ip_reduce.get_solution(ip_address_single_v4) == "192.168.1.1/32"
 
 
 def test_single_ipv6():
+    """
+    Checking operation with a single set of ipv6 addresses
+    """
     ip_address_single_v6 = ['2001:db8::1']
     assert (ip_reduce.get_solution(ip_address_single_v6, True)
             == "2001:db8::1/128")
 
 
 def test_same_subnet():
+    """
+    Checking work with addresses located in the same subnet
+    """
     ip_addresses_same_subnet = [
         '192.168.1.1', '192.168.1.2',
         '192.168.1.3', '192.168.1.4'
@@ -60,9 +78,12 @@ def test_same_subnet():
 
 
 def test_different_versions():
+    """
+    Checking exception handling with different IP addresses
+    """
     ip_addresses = [
         '192.168.1.1', '192.168.1.2',
         '2001:db8::1', '192.168.1.4'
     ]
     with pytest.raises(ValueError):
-        ip_reduce.get_solution(ip_addresses) == "192.168.1.0/29"
+        ip_reduce.get_solution(ip_addresses)

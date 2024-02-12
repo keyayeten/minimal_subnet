@@ -1,5 +1,5 @@
 import argparse
-from app import get_solution
+from ip_manipulations.ip_reduce import get_solution
 
 
 def main():

@@ -37,10 +37,18 @@
 
 # Запуск из консоли:
 
-python .\controller.py <ip_file> <ip_version>
+Перед запуском следует установить пакет в виртуальное окружение(но сначала надо создать пакет python setup.py sdist).
 
-Для запуска из консоли требуется указать следующие аргументы:
+pip install <путь до пакета .tar.gz>
 
-<ip_file> - имя файла с ip адресами
+После установки запуск будет доступен командой minimal_subnet <ip_file> <ip_version
 
-<ip_version> - версия ip
+Где:
+
+* <ip_file> - путь к файлу с ip адресами
+
+* <ip_version> - версия ip
+
+Пример:
+
+minimal_subnet "C:\Users\Vladislav\Desktop\data.txt" "ipv6"

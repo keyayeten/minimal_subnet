@@ -34,8 +34,8 @@ def count_prefix_bits(bits: int, v6=False) -> int:
 
 def ip_to_bin(ip_address, v6=False):
     if v6:
-        return bin(int(ipaddress.IPv6Address(ip_address)))[2:]
-    return bin(int(ipaddress.IPv4Address(ip_address)))[2:]
+        return bin(int(ipaddress.IPv6Address(ip_address)))[2:].zfill(128)
+    return bin(int(ipaddress.IPv4Address(ip_address)))[2:].zfill(32)
 
 
 def bin_to_ip(binary_str, v6=False):
@@ -50,7 +50,12 @@ def bin_to_ip(binary_str, v6=False):
 
 
 def get_solution(ip_addresses, v6=False):
-    result = xnor_bits_of_ips(ip_addresses, v6)
+    if len(ip_addresses) == 1:
+        return f"{ip_addresses[0]}/{128 if v6 else 32}"
+    try:
+        result = xnor_bits_of_ips(ip_addresses, v6)
+    except ipaddress.AddressValueError:
+        raise ValueError("Adresses must be the same version")
     prefix_bits = count_prefix_bits(result, v6)
     temp = ip_to_bin(ip_addresses[0], v6)[:prefix_bits]
     if v6:
@@ -62,9 +67,9 @@ def get_solution(ip_addresses, v6=False):
 
 # Пример использования:
 if __name__ == "__main__":
-    ip_addresses_v4 = ['192.168.1.1',
-                       '192.168.1.3',
-                       '192.168.1.5']
+    ip_addresses_v4 = ['10.168.1.1',
+                       '10.168.1.3',
+                       '10.168.1.5']
     print(get_solution(ip_addresses_v4))
 
     ip_addresses_v6 = ["ffe0::1:0:0:0",

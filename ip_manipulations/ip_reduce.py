@@ -7,7 +7,9 @@ import ipaddress
 
 
 def ip_to_int(ip_adress: str, v6=False) -> int:
-    """_summary_
+    """
+    Converting the classic ip representation to an integer representation.
+    The function is needed for the correct execution of xnor
 
     Args:
         ip_adress (str): classic representation of ip
@@ -15,6 +17,11 @@ def ip_to_int(ip_adress: str, v6=False) -> int:
 
     Returns:
         int: representation of ip as int
+
+    >>> ip_to_int("255.0.0.0")
+    4278190080
+    >>> ip_to_int("2001:0db8:85a3:0000:0000:8a2e:0370:7334", True)
+    42540766452641154071740215577757643572
     """
     if v6:
         return int(ipaddress.IPv6Address(ip_adress))
@@ -33,7 +40,12 @@ def xnor_bits_of_ips(ips_list: list[str], v6=False) -> int:
         v6 (bool, optional): version flag True if ipv6. Defaults to False.
 
     Returns:
-        int: _description_
+        int: representation of ip as integer
+
+    >>> xnor_bits_of_ips(ip_addresses_v4)
+    4294967289
+    >>> xnor_bits_of_ips(ip_addresses_v6, True)
+    340282366920938463463302831312706994175
     """
     mask_init = (0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
                  if v6 else 0XFFFFFFFF)  # default mask
@@ -57,6 +69,11 @@ def count_prefix_bits(bits: int, v6=False) -> int:
 
     Returns:
         int: number of significant bits
+
+    >>> count_prefix_bits(4294967289)
+    29
+    >>> count_prefix_bits(340282366920938463463302831312706994175, True)
+    72
     """
     mask, counter, full = ((0x80000000000000000000000000000000, 0, 128)
                            if v6 else (0X80000000, 0, 32))
@@ -79,6 +96,15 @@ def ip_to_bin(ip_address: str, v6=False) -> str:
 
     Returns:
         str: binary representation of ip
+
+    >>> ip_to_bin("255.255.255.255")
+    '11111111111111111111111111111111'
+
+    >>> ip_to_bin("ffe0::2:0:0:0", True)
+    '11111111111000000000000000000000000\
+00000000000000000000000000000000000000\
+000001000000000000000000000000000\
+0000000000000000000000'
     """
     if v6:
         return bin(int(ipaddress.IPv6Address(ip_address)))[2:].zfill(128)
@@ -95,6 +121,15 @@ def bin_to_ip(binary_str: str, v6=False) -> str:
 
     Returns:
         str: classic representation of ip
+
+    >>> bin_to_ip("11111111111111111111111111111111")
+    '255.255.255.255'
+
+    >>> bin_to_ip("00100000000000010000\
+110110111000001000010101001100\
+0000000000000000000000000000\
+0001000101000101110001100000110111000000100", True)
+    '40:21b:7042:a600:0:8a:2e30:6e04'
     """
     full, parts = (128, 16) if v6 else (32, 8)
     padded_binary = binary_str.zfill(full)
@@ -181,3 +216,4 @@ if __name__ == "__main__":
                        "ffe0::40:0:0:0",
                        "ffe0::80:0:0:0"]
     print(get_solution(ip_addresses_v6, True))
+    print(bin_to_ip("11111111111111111111111111111111"))

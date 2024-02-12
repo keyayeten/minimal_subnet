@@ -52,7 +52,7 @@ def count_prefix_bits(bits: int, v6=False) -> int:
     minimum common IPv4/IPv6 subnet coverage
 
     Args:
-        bits (int): _description_
+        bits (int): an integer representing the bits to be analyzed.
         v6 (bool, optional): version flag True if ipv6. Defaults to False.
 
     Returns:

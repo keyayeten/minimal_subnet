@@ -61,17 +61,18 @@ def get_solution(ip_addresses, v6=False):
 
 
 # Пример использования:
-ip_addresses_v4 = ['192.168.1.1',
-                   '192.168.1.3',
-                   '192.168.1.5']
-print(get_solution(ip_addresses_v4))
+if __name__ == "__main__":
+    ip_addresses_v4 = ['192.168.1.1',
+                       '192.168.1.3',
+                       '192.168.1.5']
+    print(get_solution(ip_addresses_v4))
 
-ip_addresses_v6 = ["ffe0::1:0:0:0",
-                   "ffe0::2:0:0:0",
-                   "ffe0::4:0:0:0",
-                   "ffe0::8:0:0:0",
-                   "ffe0::10:0:0:0",
-                   "ffe0::20:0:0:0",
-                   "ffe0::40:0:0:0",
-                   "ffe0::80:0:0:0"]
-print(get_solution(ip_addresses_v6, True))
+    ip_addresses_v6 = ["ffe0::1:0:0:0",
+                       "ffe0::2:0:0:0",
+                       "ffe0::4:0:0:0",
+                       "ffe0::8:0:0:0",
+                       "ffe0::10:0:0:0",
+                       "ffe0::20:0:0:0",
+                       "ffe0::40:0:0:0",
+                       "ffe0::80:0:0:0"]
+    print(get_solution(ip_addresses_v6, True))
